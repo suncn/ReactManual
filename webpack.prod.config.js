@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 module.exports = {
     entry: './main.js',
     output: {
@@ -33,5 +34,13 @@ module.exports = {
             exclude: /node_modules/,
             loader: "babel-loader"
         }]　
-    }
+    },
+    // Minify the code.
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
+    ]
 };
