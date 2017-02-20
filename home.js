@@ -18,12 +18,14 @@ class Home extends Component {
     renderUserList() {
         const userList = this.props.userList;
         if (userList.length > 0) {
-			console.log(userList);
-			return (<div>查看控制台和redux</div>)
+            return <ul>
+				{userList.map((item,i)=>{
+					return <li key={i} > {item[i+1]} </li>
+				})}
+			</ul>
         } else {
             return <div>reducer:<span onClick={this.handleClick.bind(this)}>clickThis</span></div>
         }
-
     }
 
     render() {
