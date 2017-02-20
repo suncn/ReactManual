@@ -1,0 +1,29 @@
+{
+  "name": "addwebpack",
+  "version": "1.0.0",
+  "description": "测试添加webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "webpack-dev-server  --hot --inline --config webpack.config.js"
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "author": "liys",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "redux": "^3.6.0",
+    "redux-saga": "^0.14.3",
+    "webpack": "^2.2.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-plugin-transform-react-jsx": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
+  }
+}
