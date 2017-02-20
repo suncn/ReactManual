@@ -29,9 +29,9 @@ import {
 
 // 写一个测试action
 const userList = [{
-    "1": "王鹏鹏"
+    "1": "user1"
 }, {
-    "2": "李明明"
+    "2": "user2"
 }];
 
 export const getUserList = () => {
