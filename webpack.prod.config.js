@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 module.exports = {
-    entry: './main.js',
+    entry: './main-saga.js',
     output: {
         filename: 'bundle.js'
     },

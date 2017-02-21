@@ -8,7 +8,7 @@ import {
 
 import {
     getUserList
-} from "./main.js"
+} from "./main-saga"
 
 class Home extends Component {
     handleClick() {
@@ -38,7 +38,6 @@ const mapStateToProps = (state) => {
         userList: state.userList
     }
 }
-
 export default connect(mapStateToProps, {
     getUserList
 })(Home);

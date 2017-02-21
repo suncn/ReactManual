@@ -1,7 +1,7 @@
 module.exports = {
-    entry: './main.js',
+    entry: ['babel-polyfill', './main-saga.js'],
     output: {
-        filename: 'bundle.js'
+        filename: 'bundle2.js'
     },
     devServer: {
         hot: true,

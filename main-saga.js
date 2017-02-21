@@ -14,8 +14,16 @@ import {
 
 import {
     createStore,
-    combineReducers
+    applyMiddleware,
+	combineReducers,
+	compose
 } from "redux"
+
+import createSagaMiddleware from 'redux-saga'
+
+import mySaga from './saga'
+
+import Home from './home'
 
 import {
     Router,
@@ -34,19 +42,21 @@ const userList = [{
     "2": "user2"
 }];
 
-export const getUserList = () => {
+export function getUserList() {
     return {
-        type: "getUserList",
+        type: "USER_FETCH_REQUESTED",
         payload: userList
     }
 }
 
+
 // 封装reducer
 const reducer = combineReducers({
     userList: (state = [], action) => {
+        console.log("action", action);
         switch (action.type) {
-            case "getUserList":
-                return action.payload;
+            case "USER_FETCH_SUCCEEDED":
+                return action.user;
                 break;
             default:
                 return state;
@@ -55,31 +65,45 @@ const reducer = combineReducers({
     routing: routerReducer,
 });
 
-// 创建redux仓库
-const store = createStore(
-    reducer, /* preloadedState, */
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+// 建立 saga middleware
+const sagaMiddleware = createSagaMiddleware()
 
-// 配置路由切换方式
+// 建立 saga middleware
+// 將 saga middleware mount 在 Store 上
+const store = createStore(
+    reducer,
+    compose(
+        applyMiddleware(
+            sagaMiddleware
+        ),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+)
+// 建立 saga middleware
+// 然後執行 saga
+sagaMiddleware.run(mySaga)
+    // 配置路由切换方式
 const history = syncHistoryWithStore(browserHistory, store);
 
+// 配置路由切换方式
 // 路由配置
 const rootRoute = {
     childRoutes: [{
         path: '/',
-        component: require('./home').default,
+        component: require("./home").default,
     }]
 }
+
 
 // 配置项目构件
 class App extends Component {
     render() {
-        return (<Provider store = {store} >
-				<Router history={history} routes={rootRoute} />
+        return (<Provider store = {store} > 
+			<Router history = {history} routes = {rootRoute} /> 
 			</Provider>)
     }
 }
+
 
 // 异步JS测试
 require.ensure(['./text.js'], function(require) {
@@ -90,5 +114,7 @@ require.ensure(['./text.js'], function(require) {
     // window.onload = () => {
     // document.getElementById("body").innerHTML = `<div id='text'>${isEqual?1:0}css2</div>`;
     // render( <APP /> ,document.getElementById("body") );
+
+
     render(<App />, document.getElementById("app"));
-});
+})
