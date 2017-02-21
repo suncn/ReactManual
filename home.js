@@ -6,9 +6,14 @@ import {
     connect
 } from "react-redux"
 
-import {
-    getUserList
-} from "./main-saga"
+import {userList} from './main-saga'
+export const getUserList = () => {
+    return {
+        type: "USER_FETCH_REQUESTED",
+        payload: userList
+    }
+}
+
 
 class Home extends Component {
     handleClick() {

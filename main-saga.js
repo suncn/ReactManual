@@ -36,18 +36,11 @@ import {
 } from 'react-router-redux'
 
 // 写一个测试action
-const userList = [{
+export const userList = [{
     "1": "user1"
 }, {
     "2": "user2"
 }];
-
-export function getUserList() {
-    return {
-        type: "USER_FETCH_REQUESTED",
-        payload: userList
-    }
-}
 
 
 // 封装reducer
@@ -90,7 +83,7 @@ const history = syncHistoryWithStore(browserHistory, store);
 const rootRoute = {
     childRoutes: [{
         path: '/',
-        component: require("./home").default,
+		component: Home,
     }]
 }
 
@@ -104,6 +97,9 @@ class App extends Component {
     }
 }
 
+window.onload = () => {
+	render(<App />, document.getElementById("app"));
+}
 
 // 异步JS测试
 require.ensure(['./text.js'], function(require) {
@@ -115,6 +111,4 @@ require.ensure(['./text.js'], function(require) {
     // document.getElementById("body").innerHTML = `<div id='text'>${isEqual?1:0}css2</div>`;
     // render( <APP /> ,document.getElementById("body") );
 
-
-    render(<App />, document.getElementById("app"));
 })
